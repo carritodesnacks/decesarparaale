@@ -10,6 +10,7 @@
       text-align: center;
       padding: 50px;
       color: #fff;
+      overflow-x: hidden;
     }
     .card {
       background: rgba(0,0,0,0.2);
@@ -17,6 +18,8 @@
       border-radius: 20px;
       max-width: 400px;
       margin: auto;
+      position: relative;
+      z-index: 1;
     }
     button {
       background: #ff4d6d;
@@ -28,14 +31,31 @@
       color: white;
       margin: 10px;
       transition: transform 0.3s;
+      z-index: 1;
+      position: relative;
     }
     button:hover {
       background: #ff1e4d;
     }
     img {
-      max-width: 150px;
+      max-width: 120px;
       border-radius: 15px;
       margin: 10px;
+      position: relative;
+      transition: transform 0.5s;
+    }
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #ffeb3b;
+      z-index: 1000;
+      pointer-events: none;
+      animation: fall 3s linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity:1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity:0; }
     }
   </style>
 </head>
@@ -53,8 +73,8 @@
 
     <!-- Imágenes de gatitos y perritos -->
     <div id="imagenes">
-      <img src="https://placekitten.com/150/150" alt="Gatito adorable">
-      <img src="https://placedog.net/150/150" alt="Perrito adorable">
+      <img id="gato" src="https://placekitten.com/120/120" alt="Gatito adorable">
+      <img id="perro" src="https://placedog.net/120/120" alt="Perrito adorable">
     </div>
   </div>
 
@@ -69,4 +89,67 @@
     ];
 
     let contadorNo = 0;
-    const noBtn = document.getElementById("n
+    const noBtn = document.getElementById("noBtn");
+
+    function no() {
+      const respuesta = document.getElementById("respuesta");
+
+      if (contadorNo < mensajesNo.length) {
+        // Mostrar mensaje
+        respuesta.innerHTML = mensajesNo[contadorNo];
+
+        // Reducir tamaño del botón
+        let newSize = 100 - (contadorNo + 1) * 15; // porcentaje
+        noBtn.style.transform = `scale(${newSize/100})`;
+
+        contadorNo++;
+
+        // Después del 5to click, desaparece
+        if (contadorNo === mensajesNo.length) {
+          noBtn.style.display = "none";
+        }
+      }
+    }
+
+    function si() {
+      const respuesta = document.getElementById("respuesta");
+      const gato = document.getElementById("gato");
+      const perro = document.getElementById("perro");
+
+      // Mensaje romántico + instrucción de captura
+      respuesta.innerHTML =
+        "💘 Sabía que dirías que sí 💘<br>Te amo muchísimo 😘<br><br>" +
+        "📸 Por favor, mándame esta captura de pantalla para confirmar tu asistencia.";
+
+      // Animación de gatito y perrito
+      gato.style.transform = "translateY(-20px) rotate(-10deg)";
+      perro.style.transform = "translateY(-20px) rotate(10deg)";
+
+      // Lluvia de confeti
+      lanzarConfeti(50);
+
+      // Reinicia el botón "No"
+      contadorNo = 0;
+      noBtn.style.display = "inline-block";
+      noBtn.style.transform = "scale(1)";
+    }
+
+    // Función para crear confeti
+    function lanzarConfeti(cantidad) {
+      for (let i = 0; i < cantidad; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+        document.body.appendChild(confetti);
+
+        // Eliminar confeti después de la animación
+        setTimeout(() => {
+          confetti.remove();
+        }, 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
