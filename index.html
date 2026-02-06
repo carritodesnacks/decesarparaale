@@ -69,8 +69,8 @@
 
   <!-- Propuesta -->
   <div class="card" id="propuesta" style="display:none;">
-    <h1>💖 Hola mi amor 💖</h1>
-    <p>Quiero decirte que de que llegaste a mi vida, todo es mucho mejor. Es por eso, que como todos los años, quiero preguntarte si:.</p>
+    <h1>💖 Hola mi niña hermosa 💖</h1>
+    <p>Desde que llegaste a mi vida, todo es mejor.</p>
     <h2>¿Quieres ser mi San Valentín este 14 de febrero? 🌹</h2>
 
     <button onclick="si()">¡Sí! 😍</button>
@@ -80,4 +80,78 @@
 
     <div>
       <img src="https://placekitten.com/120/120">
-      <img src="https://placekitten.com/121/12
+      <img src="https://placekitten.com/121/121">
+      <img src="https://placekitten.com/122/122">
+      <img src="https://placekitten.com/123/123">
+    </div>
+  </div>
+
+  <!-- Música: O Tú O Ninguna - Luis Miguel -->
+  <iframe
+    id="musica"
+    src="https://www.youtube.com/embed/K3Qzzggn--s?enablejsapi=1"
+    allow="autoplay">
+  </iframe>
+
+  <script>
+    let mensajesNo = [
+      "🥺 ¿Estás segura?",
+      "😢 Vamos, piénsalo otra vez",
+      "💔 Mi corazoncito no aguanta",
+      "😏 Sabemos que quieres decir que sí",
+      "💖 Ándale, di que síiiii"
+    ];
+
+    let contadorNo = 0;
+    const noBtn = document.getElementById("noBtn");
+
+    function entrar() {
+      document.getElementById("entrada").style.display = "none";
+      document.getElementById("propuesta").style.display = "block";
+      reproducirMusica();
+    }
+
+    function no() {
+      const respuesta = document.getElementById("respuesta");
+      if (contadorNo < mensajesNo.length) {
+        respuesta.innerHTML = mensajesNo[contadorNo];
+        noBtn.style.transform = `scale(${1 - contadorNo * 0.15})`;
+        contadorNo++;
+        if (contadorNo === mensajesNo.length) {
+          noBtn.style.display = "none";
+        }
+      }
+    }
+
+    function si() {
+      const respuesta = document.getElementById("respuesta");
+      respuesta.innerHTML =
+        "💘 Sabía que dirías que sí 💘<br>" +
+        "Te amo muchísimo 😘<br><br>" +
+        "📸 Mándame esta captura para confirmar tu asistencia 💕";
+
+      lanzarConfeti(60);
+      contadorNo = 0;
+      noBtn.style.display = "inline-block";
+      noBtn.style.transform = "scale(1)";
+    }
+
+    function lanzarConfeti(cantidad) {
+      for (let i = 0; i < cantidad; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.backgroundColor = `hsl(${Math.random()*360},100%,50%)`;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    function reproducirMusica() {
+      const iframe = document.getElementById("musica");
+      iframe.src += "&autoplay=1&volume=30";
+    }
+  </script>
+
+</body>
+</html>
