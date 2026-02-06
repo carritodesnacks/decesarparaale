@@ -67,7 +67,7 @@
     }
 
     #contador {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: bold;
       margin-top: 20px;
       display: none;
@@ -109,4 +109,94 @@
   <!-- Propuesta -->
   <div class="card" id="propuesta" style="display:none;">
     <h1>💖 Hola mi amor 💖</h1>
-    <p
+    <p>Desde que llegaste a mi vida, todo es mejor.</p>
+    <h2>¿Quieres ser mi San Valentín este 14 de febrero? 🌹</h2>
+
+    <button onclick="si()">¡Sí! 😍</button>
+    <button id="noBtn" onclick="no()">No 😢</button>
+
+    <p id="respuesta"></p>
+  </div>
+
+  <!-- Música (YouTube) -->
+  <iframe
+    id="musica"
+    src="https://www.youtube.com/embed/uTT9Bg_duiU?autoplay=0"
+    allow="autoplay">
+  </iframe>
+
+  <script>
+    let mensajesNo = [
+      "🥺 ¿Estás segura?",
+      "😢 Piénsalo otra vez",
+      "💔 Mi corazoncito no aguanta",
+      "😏 Sabemos que quieres decir que sí",
+      "💖 Ándale, di que síiiii"
+    ];
+
+    let contadorNo = 0;
+    const noBtn = document.getElementById("noBtn");
+
+    function entrar() {
+      // Inicia música
+      const musica = document.getElementById("musica");
+      musica.src = "https://www.youtube.com/embed/uTT9Bg_duiU?autoplay=1";
+
+      // Contador
+      const contador = document.getElementById("contador");
+      contador.style.display = "block";
+
+      let tiempo = 10;
+      contador.textContent = tiempo;
+
+      const intervalo = setInterval(() => {
+        tiempo--;
+        contador.textContent = tiempo;
+
+        if (tiempo === 0) {
+          clearInterval(intervalo);
+          document.getElementById("entrada").style.display = "none";
+          document.getElementById("propuesta").style.display = "block";
+        }
+      }, 1000);
+    }
+
+    function no() {
+      const respuesta = document.getElementById("respuesta");
+
+      if (contadorNo < mensajesNo.length) {
+        respuesta.innerHTML = mensajesNo[contadorNo];
+        noBtn.style.transform = `scale(${1 - contadorNo * 0.12})`;
+        contadorNo++;
+
+        if (contadorNo === mensajesNo.length) {
+          noBtn.style.display = "none";
+        }
+      }
+    }
+
+    function si() {
+      const respuesta = document.getElementById("respuesta");
+      respuesta.innerHTML =
+        "💘 Sabía que dirías que sí 💘<br>" +
+        "Te amo muchísimo 😘<br><br>" +
+        "📸 Mándame esta captura para confirmarlo 💕";
+
+      lanzarConfeti(50);
+    }
+
+    function lanzarConfeti(cantidad) {
+      for (let i = 0; i < cantidad; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
