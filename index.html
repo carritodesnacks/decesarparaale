@@ -74,8 +74,13 @@
     }
 
     #respuesta {
-      margin-top: 15px;
-      font-size: 1.05rem;
+      margin-top: 20px;
+    }
+
+    .mensaje-final {
+      font-size: 1.5rem;
+      font-weight: bold;
+      line-height: 1.4;
     }
 
     .confetti {
@@ -108,17 +113,19 @@
 
   <!-- Propuesta -->
   <div class="card" id="propuesta" style="display:none;">
-    <h1>💖 Hola mi amor 💖</h1>
+    <h1>💖 Hola mi niña hermosa 💖</h1>
     <p>Desde que llegaste a mi vida, todo es mejor.</p>
     <h2>¿Quieres ser mi San Valentín este 14 de febrero? 🌹</h2>
 
-    <button onclick="si()">¡Sí! 😍</button>
-    <button id="noBtn" onclick="no()">No 😢</button>
+    <div id="botones">
+      <button onclick="si()">¡Sí! 😍</button>
+      <button id="noBtn" onclick="no()">No 😢</button>
+    </div>
 
-    <p id="respuesta"></p>
+    <div id="respuesta"></div>
   </div>
 
-  <!-- Música (YouTube) -->
+  <!-- Música -->
   <iframe
     id="musica"
     src="https://www.youtube.com/embed/uTT9Bg_duiU?autoplay=0"
@@ -138,11 +145,9 @@
     const noBtn = document.getElementById("noBtn");
 
     function entrar() {
-      // Inicia música
       const musica = document.getElementById("musica");
       musica.src = "https://www.youtube.com/embed/uTT9Bg_duiU?autoplay=1";
 
-      // Contador
       const contador = document.getElementById("contador");
       contador.style.display = "block";
 
@@ -176,13 +181,19 @@
     }
 
     function si() {
-      const respuesta = document.getElementById("respuesta");
-      respuesta.innerHTML =
-        "💘 Sabía que dirías que sí 💘<br>" +
-        "Te amo muchísimo 😘<br><br>" +
-        "📸 Mándame esta captura para confirmarlo 💕";
+      // Eliminar botones
+      document.getElementById("botones").style.display = "none";
 
-      lanzarConfeti(50);
+      const respuesta = document.getElementById("respuesta");
+      respuesta.innerHTML = `
+        <div class="mensaje-final">
+          💘 Sabía que dirías que sí 💘<br><br>
+          Te amo muchísimo 😘<br><br>
+          📸 Mándame esta captura para siempre 💕
+        </div>
+      `;
+
+      lanzarConfeti(60);
     }
 
     function lanzarConfeti(cantidad) {
