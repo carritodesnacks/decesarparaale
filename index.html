@@ -32,6 +32,11 @@
     button:hover {
       background: #ff1e4d;
     }
+    img {
+      max-width: 150px;
+      border-radius: 15px;
+      margin: 10px;
+    }
   </style>
 </head>
 <body>
@@ -45,6 +50,12 @@
     <button id="noBtn" onclick="no()">No 😢</button>
 
     <p id="respuesta"></p>
+
+    <!-- Imágenes de gatitos y perritos -->
+    <div id="imagenes">
+      <img src="https://placekitten.com/150/150" alt="Gatito adorable">
+      <img src="https://placedog.net/150/150" alt="Perrito adorable">
+    </div>
   </div>
 
   <script>
@@ -58,42 +69,4 @@
     ];
 
     let contadorNo = 0;
-    const noBtn = document.getElementById("noBtn");
-
-    function no() {
-      const respuesta = document.getElementById("respuesta");
-
-      if (contadorNo < mensajesNo.length) {
-        // Mostrar mensaje
-        respuesta.innerHTML = mensajesNo[contadorNo];
-
-        // Reducir tamaño del botón
-        let newSize = 100 - (contadorNo + 1) * 15; // porcentaje
-        noBtn.style.transform = `scale(${newSize/100})`;
-
-        contadorNo++;
-
-        // Después del 5to click, desaparece
-        if (contadorNo === mensajesNo.length) {
-          noBtn.style.display = "none";
-        }
-      }
-    }
-
-    function si() {
-      const respuesta = document.getElementById("respuesta");
-
-      // Mensaje romántico
-      respuesta.innerHTML =
-        "💘 Sabía que dirías que sí 💘<br>Te amo muchísimo 😘<br><br>" +
-        "📸 Por favor, mándame esta captura de pantalla para confirmar tu asistencia.";
-
-      // Reinicia el botón "No" por si quieres usarlo otra vez
-      contadorNo = 0;
-      noBtn.style.display = "inline-block";
-      noBtn.style.transform = "scale(1)";
-    }
-  </script>
-
-</body>
-</html>
+    const noBtn = document.getElementById("n
